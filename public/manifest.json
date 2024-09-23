@@ -1,0 +1,16 @@
+{
+  "short_name": "QBuild",
+  "name": "QBuild",
+  "icons": [
+    {
+      "src": "qbuild-black.SVG",
+      "sizes": "159x159",
+      "type": "image/svg+xml"
+    }
+  ],
+  "gcm_sender_id": "604331351140",
+  "start_url": "https://console.qbuild.app/login",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

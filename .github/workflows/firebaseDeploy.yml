@@ -1,0 +1,48 @@
+name: ReactJS Deployment
+
+on:
+  push:
+    branches:
+      - master
+      - staging
+
+jobs:
+  deploy_to_firebase:
+    name: Deploy to Firebase Hosting (Production)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+      - run: npm install
+      - run: CI=false npm run build --if-present
+      - name: Archive Production Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: build
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting
+        env:
+          FIREBASE_TOKEN: 1//0gBOv4MSc0Z9-CgYIARAAGBASNwF-L9IrRg2VveVrs30nO3RZRrqEYmqopOP-305EyWqU2-KzUmlvJEJx7SwpYBUx7akwFe6MsKk
+
+  deploy_to_staging:
+    name: Deploy to Staging Server
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/staging'
+
+    steps:
+      - name: Execute Remote SSH Commands Using Password
+        uses: appleboy/ssh-action@master
+        with:
+          host: 216.48.189.202
+          username: root
+          password: SXTPEF@yzztv862
+          port: 22
+          script: /var/www/web-build.sh

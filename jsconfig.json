@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src"
+  },
+  "include": [
+    "src",
+    "src/app/main/projects/dashbords/user-dashboard/admin-dashboard/.js"
+  ]
+}
